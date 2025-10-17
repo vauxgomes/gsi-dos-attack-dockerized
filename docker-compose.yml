@@ -1,0 +1,54 @@
+services:
+  server:
+    # Constrói a imagem a partir do Dockerfile na pasta server/
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: synflood_server
+    # Mapeia a porta 80 do container para a porta 8080 do host (opcional, para teste)
+    ports:
+      - "8080:80"
+    # Adiciona o container à rede
+    networks:
+      - synflood_net
+    # Apenas para fins de demonstração, o nome do container será o hostname interno
+    hostname: server-target
+
+    # Aumenta o limite das filas TCP para tornar o ataque visível
+    sysctls:
+      # Limite máximo de conexões 'SYN-RECV' (fila meio-aberta)
+      net.ipv4.tcp_max_syn_backlog: 4096 
+      # Limite de conexões que o socket pode enfileirar (fila completa)
+      # Este valor também afeta indiretamente o limite real do backlog SYN
+      net.core.somaxconn: 4096 
+      # Desativa os SYN Cookies para garantir que o kernel aloque o espaço de memória
+      # O que vai levar ao aumento de RAM e provar a exaustão de recursos.
+      net.ipv4.tcp_syncookies: 0
+
+    deploy:
+      resources:
+        limits:
+          memory: 256m # Limite o servidor a 256 Megabytes de RAM
+
+    
+
+  attacker:
+    # Constrói a imagem a partir do Dockerfile na pasta attacker/
+    build:
+      context: ./attacker
+      dockerfile: Dockerfile
+    container_name: synflood_attacker
+    # Adiciona o container à rede
+    networks:
+      - synflood_net
+    # O hping3 requer privilégios de root para gerar pacotes brutos
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    stdin_open: true # Garante que o container esteja pronto para receber entrada no modo tty
+    tty: true # Mantenha o container rodando para que você possa executar o comando manualmente
+
+# Definição da rede
+networks:
+  synflood_net:
+    driver: bridge

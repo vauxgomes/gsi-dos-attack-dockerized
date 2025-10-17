@@ -1,0 +1,30 @@
+{
+  "workbench.colorCustomizations": {
+    // Cores principais da Barra de Status: use um tom de amarelo-escuro ou laranja
+    "statusBar.background": "#d9a400", // Amarelo/Dourado Escuro
+    "statusBar.foreground": "#1e1e1e", // Texto escuro para contraste
+    "statusBar.noFolderBackground": "#d9a400", // Amarelo/Dourado Escuro
+    "statusBar.noFolderForeground": "#1e1e1e", // Texto escuro
+
+    // Cores da Barra de Status durante o Debug: use um tom mais forte ou laranja-avermelhado
+    "statusBar.debuggingBackground": "#e67e22", // Laranja Vívido
+    "statusBar.debuggingForeground": "#ffffff", // Texto branco
+
+    // Cores para itens interativos
+    "statusBarItem.hoverBackground": "#ffc107", // Amarelo mais claro no hover
+    "statusBarItem.activeBackground": "#b38600", // Amarelo/Dourado um pouco mais escuro
+
+    // Novas propriedades para o botão de "Close Workspace" / "Remove Window"
+    // Mantive o erro em vermelho para alerta, mas com um toque amarelado no fundo
+    "statusBarItem.errorBackground": "#cc3333", // Vermelho, pois erro deve se destacar
+    "statusBarItem.errorForeground": "#ffffff", // Texto branco
+    
+    // Cores para itens de aviso (Warning)
+    "statusBarItem.warningBackground": "#ffb74d", // Laranja-claro/Amarelo suave
+    "statusBarItem.warningForeground": "#1e1e1e", // Texto escuro
+    
+    // Cores para itens remotos
+    "statusBarItem.remoteBackground": "#f1c40f", // Amarelo Brilhante
+    "statusBarItem.remoteForeground": "#1e1e1e" // Texto escuro
+  }
+}
